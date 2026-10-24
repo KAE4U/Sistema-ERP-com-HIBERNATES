@@ -1,0 +1,12 @@
+# Modelo de configuração local.
+# 1) Copie este arquivo para "config.local.properties" (na mesma pasta do pom.xml ou do .jar).
+# 2) Troque SUA_SENHA pela senha do banco no Supabase.
+# O arquivo config.local.properties está no .gitignore: a senha não vai para o GitHub.
+
+db.url=jdbc:postgresql://aws-0-us-west-2.pooler.supabase.com:6543/postgres?sslmode=require&prepareThreshold=0
+db.user=postgres.suxakjtiifmjlpqqzvff
+db.password=SUA_SENHA
+db.driver=org.postgresql.Driver
+db.dialect=org.hibernate.dialect.PostgreSQLDialect
+db.ddl=none
+db.show_sql=false

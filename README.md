@@ -2,6 +2,33 @@
 
 Aplicação desktop Java 17/Swing para cadastros, compras, vendas, estoque, relatórios PDF e dashboard gerencial. O projeto preserva o fluxo visual do ERP original e substitui integralmente o JDBC manual por JPA/Hibernate ORM.
 
+## Usar em outro computador
+
+Em qualquer opção é preciso ter o **Java 17 ou mais novo** instalado ([download](https://adoptium.net/temurin/releases/?version=17)). O banco já está no Supabase, então não é preciso instalar banco de dados.
+
+### Opção 1 — Só executar (mais rápida)
+
+1. Baixe `sistema-erp-hibernate.jar` e `config.local.properties.example` na página de [Releases](https://github.com/KAE4U/Sistema-ERP-com-HIBERNATES/releases/latest).
+2. Coloque os dois arquivos na mesma pasta.
+3. Renomeie `config.local.properties.example` para `config.local.properties` e troque `SUA_SENHA` pela senha do banco.
+4. Dê dois cliques no `.jar` ou rode `java -jar sistema-erp-hibernate.jar` nessa pasta.
+
+### Opção 2 — Com o código-fonte (para editar ou apresentar)
+
+```bash
+git clone https://github.com/KAE4U/Sistema-ERP-com-HIBERNATES.git
+cd Sistema-ERP-com-HIBERNATES
+```
+
+- **Windows:** dê dois cliques em `executar.bat`.
+- **Linux/Mac:** rode `./executar.sh`.
+
+Na primeira vez, o script cria o `config.local.properties`. Coloque nele a senha do banco e rode de novo. O projeto compila sozinho pelo Maven Wrapper (`mvnw`), sem precisar instalar o Maven.
+
+No **IntelliJ**: *File → New → Project from Version Control*, cole a URL do repositório, crie o `config.local.properties` na raiz e rode a classe `br.unip.erp.Main`.
+
+Login inicial: `admin` / `admin`.
+
 ## Funcionalidades
 
 - Login com usuários ativos, senha BCrypt e migração automática de senhas legadas em texto no primeiro acesso válido.
