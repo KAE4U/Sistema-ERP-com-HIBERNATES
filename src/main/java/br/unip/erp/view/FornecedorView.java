@@ -208,15 +208,15 @@ public class FornecedorView extends JInternalFrame {
         }
       }
       String doc = txtCpfCnpj.getText();
-      if (doc != null
-          && !doc.replaceAll("\\D", "").isEmpty()
-          && !br.unip.erp.util.ValidadorDocumento.isValido(doc)) {
-        JOptionPane.showMessageDialog(
-            this,
-            "CPF/CNPJ inválido. Verifique os dígitos informados.",
-            "Documento inválido",
-            JOptionPane.WARNING_MESSAGE);
-        return;
+      if (doc != null && !doc.replaceAll("\\D", "").isEmpty()) {
+        String motivo =
+            br.unip.erp.util.ValidadorDocumento.motivoInvalido(doc, cbTipo.getSelectedIndex() == 0);
+        if (motivo != null) {
+          JOptionPane.showMessageDialog(
+              this, motivo, "Documento inválido", JOptionPane.WARNING_MESSAGE);
+          txtCpfCnpj.requestFocusInWindow();
+          return;
+        }
       }
       p.setNome(txtNome.getText());
       p.setFisica(cbTipo.getSelectedIndex() == 1 ? "J" : "F");
