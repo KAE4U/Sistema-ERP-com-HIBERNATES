@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.1">
+  <persistence-unit name="erpPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>br.unip.erp.model.Pessoa</class><class>br.unip.erp.model.Cliente</class><class>br.unip.erp.model.Fornecedor</class><class>br.unip.erp.model.Usuario</class><class>br.unip.erp.model.Produto</class><class>br.unip.erp.model.FormaPagamento</class><class>br.unip.erp.model.Venda</class><class>br.unip.erp.model.VendaProduto</class><class>br.unip.erp.model.VendaPagamento</class><class>br.unip.erp.model.Compra</class><class>br.unip.erp.model.CompraProduto</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.jdbc.time_zone" value="UTC"/>
+      <property name="hibernate.default_batch_fetch_size" value="32"/>
+    </properties>
+  </persistence-unit>
+</persistence>
