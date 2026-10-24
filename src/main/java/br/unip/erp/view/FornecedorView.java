@@ -209,14 +209,15 @@ public class FornecedorView extends JInternalFrame {
       }
       String doc = txtCpfCnpj.getText();
       if (doc != null && !doc.replaceAll("\\D", "").isEmpty()) {
-        String motivo =
-            br.unip.erp.util.ValidadorDocumento.motivoInvalido(doc, cbTipo.getSelectedIndex() == 0);
+        String motivo = br.unip.erp.util.ValidadorDocumento.motivoInvalido(doc);
         if (motivo != null) {
           JOptionPane.showMessageDialog(
               this, motivo, "Documento inválido", JOptionPane.WARNING_MESSAGE);
           txtCpfCnpj.requestFocusInWindow();
           return;
         }
+        // 11 dígitos = pessoa Física (CPF); 14 dígitos = Jurídica (CNPJ).
+        cbTipo.setSelectedIndex(br.unip.erp.util.ValidadorDocumento.isCpf(doc) ? 0 : 1);
       }
       p.setNome(txtNome.getText());
       p.setFisica(cbTipo.getSelectedIndex() == 1 ? "J" : "F");
