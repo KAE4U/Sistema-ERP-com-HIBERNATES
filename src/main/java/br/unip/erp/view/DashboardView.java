@@ -124,14 +124,21 @@ public class DashboardView extends JInternalFrame {
     JFreeChart c = ChartFactory.createLineChart("Vendas x Compras — 12 meses", "Mês", "R$", ds);
     estilo(c);
     CategoryPlot p = c.getCategoryPlot();
-    p.setRenderer(new LineAndShapeRenderer(true, true));
+    LineAndShapeRenderer linhas = new LineAndShapeRenderer(true, true);
+    // Vendas (série 0) mais grossa e tracejada para continuar visível quando coincidir com compras.
+    linhas.setSeriesStroke(
+        0,
+        new BasicStroke(
+            3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, new float[] {8f, 6f}, 0f));
+    linhas.setSeriesStroke(1, new BasicStroke(2f));
+    p.setRenderer(linhas);
 
     // Eixo em reais (R$ 1.000,00), começando em zero e sem notação científica.
     org.jfree.chart.axis.NumberAxis eixo = (org.jfree.chart.axis.NumberAxis) p.getRangeAxis();
     eixo.setNumberFormatOverride(NumberFormat.getCurrencyInstance(new Locale("pt", "BR")));
     eixo.setRangeType(org.jfree.data.RangeType.POSITIVE);
     eixo.setAutoRangeIncludesZero(true);
-    eixo.setAutoRangeMinimumSize(1000); // sem vendas, mostra de R$ 0 a R$ 1.000
+    eixo.setAutoRangeMinimumSize(100); // sem vendas, mostra de R$ 0 a R$ 100
     eixo.setStandardTickUnits(org.jfree.chart.axis.NumberAxis.createIntegerTickUnits());
     return c;
   }
