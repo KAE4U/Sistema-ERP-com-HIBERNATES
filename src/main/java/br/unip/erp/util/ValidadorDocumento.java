@@ -26,6 +26,42 @@ public final class ValidadorDocumento {
     return false;
   }
 
+  /**
+   * Explica por que o documento é inválido para o tipo de pessoa escolhido.
+   *
+   * @param documento texto digitado (com ou sem máscara)
+   * @param pessoaFisica true = espera CPF; false = espera CNPJ
+   * @return null se estiver válido; caso contrário, a mensagem para o usuário
+   */
+  public static String motivoInvalido(String documento, boolean pessoaFisica) {
+    String d = digitos(documento);
+    String nome = pessoaFisica ? "CPF" : "CNPJ";
+    int tamanho = pessoaFisica ? 11 : 14;
+
+    if (d.length() != tamanho) {
+      String outro = pessoaFisica ? "CNPJ (14 dígitos)" : "CPF (11 dígitos)";
+      return nome
+          + " deve ter "
+          + tamanho
+          + " dígitos, mas foram informados "
+          + d.length()
+          + ".\nSe for um "
+          + outro
+          + ", altere o campo Tipo para "
+          + (pessoaFisica ? "Jurídica." : "Física.");
+    }
+    if (d.chars().distinct().count() == 1) {
+      return nome + " com todos os dígitos iguais não é aceito pela Receita Federal.";
+    }
+    boolean valido = pessoaFisica ? isCpfValido(d) : isCnpjValido(d);
+    if (!valido) {
+      return "Os dígitos verificadores (os 2 últimos) não conferem com o restante do "
+          + nome
+          + ".\nConfira se o número foi digitado corretamente.";
+    }
+    return null;
+  }
+
   /** Valida CPF (11 digitos). */
   public static boolean isCpfValido(String cpf) {
     String d = digitos(cpf);
