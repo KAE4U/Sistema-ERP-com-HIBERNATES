@@ -125,9 +125,18 @@ public class LoginView extends JFrame {
       dispose();
       new MenuView().setVisible(true);
     } catch (Exception ex) {
+      ex.printStackTrace();
+      // A mensagem do Hibernate é genérica; a causa real fica na exceção mais interna.
+      Throwable causa = ex;
+      while (causa.getCause() != null && causa.getCause() != causa) {
+        causa = causa.getCause();
+      }
       JOptionPane.showMessageDialog(
           this,
-          "Erro ao conectar ao banco de dados:\n" + ex.getMessage(),
+          "Erro ao conectar ao banco de dados:\n"
+              + ex.getMessage()
+              + "\n\nCausa: "
+              + causa.getMessage(),
           "Erro",
           JOptionPane.ERROR_MESSAGE);
     }

@@ -14,6 +14,7 @@ public class FormaPagamento {
   private String nome;
 
   @Column(name = "fpg_ativo", nullable = false, length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String ativo = "S";
 
   public int getCodigo() {

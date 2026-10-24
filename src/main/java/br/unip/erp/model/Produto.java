@@ -16,6 +16,7 @@ public class Produto {
   private String nome;
 
   @Column(name = "pro_tipo", length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String tipo;
 
   @Column(name = "pro_estoque", precision = 14, scale = 4)
@@ -52,6 +53,7 @@ public class Produto {
   private String obs;
 
   @Column(name = "pro_ativo", nullable = false, length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String ativo = "S";
 
   public int getCodigo() {

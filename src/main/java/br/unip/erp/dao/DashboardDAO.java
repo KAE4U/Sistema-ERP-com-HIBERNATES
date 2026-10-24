@@ -31,14 +31,14 @@ public class DashboardDAO {
       }
       preencherMeses(
           em.createNativeQuery(
-                  "select date_trunc('month',vda_data),coalesce(sum(vda_total),0) from venda where"
+                  "select cast(date_trunc('month',vda_data) as date),coalesce(sum(vda_total),0) from venda where"
                       + " vda_data>=?1 group by 1 order by 1")
               .setParameter(1, inicio.atDay(1))
               .getResultList(),
           d.getVendasMensais());
       preencherMeses(
           em.createNativeQuery(
-                  "select date_trunc('month',cpr_emissao),coalesce(sum(cpr_total),0) from compra"
+                  "select cast(date_trunc('month',cpr_emissao) as date),coalesce(sum(cpr_total),0) from compra"
                       + " where cpr_emissao>=?1 group by 1 order by 1")
               .setParameter(1, inicio.atDay(1))
               .getResultList(),
@@ -79,6 +79,13 @@ public class DashboardDAO {
     }
     if (valor instanceof OffsetDateTime dataHora) {
       return dataHora.toLocalDate();
+    }
+    if (valor instanceof ZonedDateTime dataHora) {
+      return dataHora.toLocalDate();
+    }
+    if (valor instanceof Instant instante) {
+      // timestamptz do PostgreSQL chega como Instant em UTC (Hibernate 6.6).
+      return instante.atZone(ZoneOffset.UTC).toLocalDate();
     }
     throw new IllegalStateException("Tipo de data inesperado no dashboard: " + valor);
   }

@@ -125,6 +125,14 @@ public class DashboardView extends JInternalFrame {
     estilo(c);
     CategoryPlot p = c.getCategoryPlot();
     p.setRenderer(new LineAndShapeRenderer(true, true));
+
+    // Eixo em reais (R$ 1.000,00), começando em zero e sem notação científica.
+    org.jfree.chart.axis.NumberAxis eixo = (org.jfree.chart.axis.NumberAxis) p.getRangeAxis();
+    eixo.setNumberFormatOverride(NumberFormat.getCurrencyInstance(new Locale("pt", "BR")));
+    eixo.setRangeType(org.jfree.data.RangeType.POSITIVE);
+    eixo.setAutoRangeIncludesZero(true);
+    eixo.setAutoRangeMinimumSize(1000); // sem vendas, mostra de R$ 0 a R$ 1.000
+    eixo.setStandardTickUnits(org.jfree.chart.axis.NumberAxis.createIntegerTickUnits());
     return c;
   }
 
@@ -139,6 +147,8 @@ public class DashboardView extends JInternalFrame {
     p.setOutlineVisible(false);
     p.setLabelBackgroundPaint(Tema.SUPERFICIE);
     p.setLabelPaint(Tema.TEXTO);
+    p.setNoDataMessage("Nenhuma venda registrada ainda");
+    p.setNoDataMessagePaint(Tema.TEXTO_SUAVE);
     return c;
   }
 

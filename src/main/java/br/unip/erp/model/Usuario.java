@@ -24,9 +24,11 @@ public class Usuario {
   private LocalDate cadastro = LocalDate.now();
 
   @Column(name = "usu_ativo", nullable = false, length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String ativo = "S";
 
   @Column(name = "usu_admin", nullable = false, length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String admin = "N";
 
   public int getCodigo() {

@@ -18,6 +18,7 @@ public class Pessoa {
   private String fantasia;
 
   @Column(name = "pes_fisica", nullable = false, length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String fisica = "F";
 
   @Column(name = "pes_cpfcnpj", length = 20)
@@ -45,6 +46,7 @@ public class Pessoa {
   private String cidade;
 
   @Column(name = "pes_uf", length = 2, columnDefinition = "CHAR(2)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String uf;
 
   @Column(name = "pes_cep", length = 9)
@@ -66,6 +68,7 @@ public class Pessoa {
   private String email;
 
   @Column(name = "pes_ativo", nullable = false, length = 1, columnDefinition = "CHAR(1)")
+  @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.CHAR)
   private String ativo = "S";
 
   public int getCodigo() {
